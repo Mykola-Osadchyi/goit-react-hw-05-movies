@@ -6,15 +6,11 @@ const API_KEY = 'e625f588d36bd893fee8ddeff8fb6e52';
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.params = {
   api_key: API_KEY,
-  // image_type: 'photo',
-  // orientation: 'horizontal',
-  // per_page: 12,
 };
 
-const fetchMoviesGetTrending = async () => {
+const getTrending = async () => {
   try {
     const { data } = await axios.get('/trending/movie/day');
-    console.log('results', data.results);
     return data.results;
   } catch (error) {
     console.log('error:', error);
@@ -22,47 +18,56 @@ const fetchMoviesGetTrending = async () => {
   }
 };
 
-// const fetchMoviesGetTrending2 = async (page = 1) => {
-//   const { data } = await axios.get(`/trending/all/day?page=${page}`);
-//   return data;
-// };
-
-const fetchMoviesGetSearch = async (search, page = 1) => {
-  const { data } = await axios.get(
-    `/search/movie?language=en-US&page=${page}&include_adult=false&query=${search}`,
-  );
-  return data;
+const searchMovies = async (search, page = 1) => {
+  try {
+    const { data } = await axios.get(
+      `/search/movie?page=${page}&query=${search}`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log('error:', error);
+    return [];
+  }
 };
 
-const fetchMoviesGetDetails = async movie_id => {
-  const { data } = await axios.get(`/movie/${movie_id}?language=en-US`);
-  return data;
+const getMovieDetails = async movie_id => {
+  try {
+    const { data } = await axios.get(`/movie/${movie_id}?language=en-US`);
+    return data;
+  } catch (error) {
+    console.log('error:', error);
+    return [];
+  }
 };
 
-const fetchMoviesGetActors = async movie_id => {
-  const { data } = await axios.get(`/movie/${movie_id}/credits?language=en-US`);
-  return data;
+const getMovieActors = async movie_id => {
+  try {
+    const { data } = await axios.get(
+      `/movie/${movie_id}/credits?language=en-US`,
+    );
+    return data.cast;
+  } catch (error) {
+    console.log('error:', error);
+    return [];
+  }
 };
 
-const fetchMoviesGetReviews = async (movie_id, page = 1) => {
-  const { data } = await axios.get(
-    `/movie/${movie_id}/reviews?language=en-US&page=${page}`,
-  );
-  return data;
+const getMovieReviews = async movie_id => {
+  try {
+    const { data } = await axios.get(
+      `/movie/${movie_id}/reviews?language=en-US`,
+    );
+    return data.results;
+  } catch (error) {
+    console.log('error:', error);
+    return [];
+  }
 };
 
 export {
-  fetchMoviesGetTrending,
-  fetchMoviesGetSearch,
-  fetchMoviesGetDetails,
-  fetchMoviesGetActors,
-  fetchMoviesGetReviews,
+  getTrending,
+  searchMovies,
+  getMovieDetails,
+  getMovieActors,
+  getMovieReviews,
 };
-
-// const API = {
-//   getTrending,
-//   searchMovies,
-//   getMovieDetails,
-//   getMovieCredits,
-//   getMovieReviews,
-// };

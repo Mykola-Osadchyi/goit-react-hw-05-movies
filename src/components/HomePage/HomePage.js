@@ -1,21 +1,30 @@
-import { fetchMoviesGetTrending } from '../../services/fetchMovies-api';
-// function HomePage() {
-//   return <div className="HomePage">HomePage</div>;
-// }
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { getTrending } from '../../services/fetchMovies-api';
 
-fetchMoviesGetTrending().then(results => console.log('results123', results));
-// const { results } = await fetchMoviesGetTrending();
+export default function HomePage() {
+  const [trendingList, setTrendingList] = useState([]);
 
-const HomePage = () => {
-  console.log('qwe');
-  return <div className="HomePage">HomePage</div>;
-};
-// <ul className="HomePage">
-//   {data.map(({ id, title }) => (
-//     <li key={id} className="HomePage">
-//       <p>{title}</p>
-//     </li>
-//   ))}
-// </ul>
+  useEffect(() => {
+    getTrending().then(results => {
+      setTrendingList(results);
+    });
+  }, []);
 
-export default HomePage;
+  console.log('trendingList', trendingList);
+
+  return (
+    <>
+      <h3>Tranding today</h3>
+      <ul className="HomePage">
+        {trendingList.map(movie => (
+          <li key={movie.id} className="HomePage">
+            <Link to={`movies/${movie.id}`}>
+              <span>{movie.title}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}

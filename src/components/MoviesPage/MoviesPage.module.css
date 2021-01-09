@@ -1,0 +1,14 @@
+.movieGallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.movieCard {
+  width: 100px;
+}
+
+.movieTitle {
+  margin-top: 0px;
+}

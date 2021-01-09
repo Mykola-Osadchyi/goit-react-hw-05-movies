@@ -1,0 +1,49 @@
+.nav {
+  margin-bottom: 30px;
+}
+
+.link:not(:last-child) {
+  margin-right: 20px;
+}
+
+.active {
+  color: red;
+}
+
+.movieWraper {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-top: 20px;
+}
+
+.movieDescription {
+  width: 600px;
+  padding-left: 20px;
+}
+
+.movieTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 0px;
+}
+
+.movieDescriptionItem {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+p {
+  margin-top: 0px;
+}
+
+.genreList {
+  margin: 0px;
+}
+
+h5 {
+  font-size: 16px;
+  margin: 0px;
+}
