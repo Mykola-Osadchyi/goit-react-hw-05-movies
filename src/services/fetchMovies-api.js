@@ -8,22 +8,22 @@ axios.defaults.params = {
   api_key: API_KEY,
 };
 
-const getTrending = async () => {
+const getTrending = async page => {
   try {
-    const { data } = await axios.get('/trending/movie/day');
-    return data.results;
+    const { data } = await axios.get(`/trending/movie/day?&page=${page}`);
+    return data;
   } catch (error) {
     console.log('error:', error);
     return [];
   }
 };
 
-const searchMovies = async (search, page = 1) => {
+const searchMovies = async (search, page) => {
   try {
     const { data } = await axios.get(
-      `/search/movie?page=${page}&query=${search}`,
+      `/search/movie?&query=${search}&page=${page}`,
     );
-    return data.results;
+    return data;
   } catch (error) {
     console.log('error:', error);
     return [];

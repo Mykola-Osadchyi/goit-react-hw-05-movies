@@ -1,32 +1,50 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import {
   useParams,
   NavLink,
   useRouteMatch,
   Switch,
   Route,
+  useLocation,
+  useHistory,
 } from 'react-router-dom';
 import { getMovieDetails } from '../../services/fetchMovies-api';
-import Cast from '../Cast/Cast';
-import Reviews from '../Reviews/Reviews';
 import makeImagePath from '../../services/makeImagePath';
+import LoaderPage from '../Loader/Loader';
 import s from './MovieDetailsPage.module.css';
 
+const Cast = lazy(() =>
+  import('../Cast/Cast.js' /* webpackChunkName: "Cast" */),
+);
+
+const Reviews = lazy(() =>
+  import('../Reviews/Reviews.js' /* webpackChunkName: "Reviews" */),
+);
+
 export default function MovieDetailsPage() {
+  const location = useLocation();
+  const history = useHistory();
+
   const { movieId } = useParams();
-  const { url } = useRouteMatch();
+  const { url, path } = useRouteMatch();
 
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     getMovieDetails(movieId).then(setMovie);
-    console.log('movie', movie);
   }, [movieId]);
+
+  const handleGoBack = () => {
+    history.push(location?.state?.from ?? '/');
+  };
 
   return (
     <>
       {movie && (
         <>
+          <button type="button" onClick={handleGoBack}>
+            Go back
+          </button>
           <div className={s.movieWraper}>
             <img
               src={makeImagePath(movie.poster_path, 'w185')}
@@ -54,29 +72,36 @@ export default function MovieDetailsPage() {
           <h5>Additional information</h5>
           <ul className="moreMovieInfo">
             <NavLink
-              to={`${url}/cast`}
+              to={{
+                pathname: `${url}/cast`,
+                state: { from: location?.state?.from ?? '/' },
+              }}
               className={s.link}
               activeClassName={s.active}
             >
               Cast
             </NavLink>
             <NavLink
-              to={`${url}/reviews`}
+              to={{
+                pathname: `${url}/reviews`,
+                state: { from: location?.state?.from ?? '/' },
+              }}
               className={s.link}
               activeClassName={s.active}
             >
               Reviews
             </NavLink>
           </ul>
-
-          <Switch>
-            <Route path={'/movies/:movieId/cast'}>
-              <Cast />
-            </Route>
-            <Route path={'/movies/:movieId/reviews'}>
-              <Reviews />
-            </Route>
-          </Switch>
+          <Suspense fallback={<LoaderPage />}>
+            <Switch>
+              <Route path={`${path}/cast`}>
+                <Cast />
+              </Route>
+              <Route path={`${path}/reviews`}>
+                <Reviews />
+              </Route>
+            </Switch>
+          </Suspense>
         </>
       )}
     </>

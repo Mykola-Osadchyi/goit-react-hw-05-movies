@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { getMovieActors } from '../../services/fetchMovies-api';
 import makeImagePath from '../../services/makeImagePath';
 
@@ -8,10 +9,14 @@ export default function Cast() {
   const [actorList, setActorList] = useState([]);
 
   useEffect(() => {
-    getMovieActors(movieId).then(setActorList);
+    getMovieActors(movieId).then(actors => {
+      if (actors.length === 0) {
+        toast.info('There are no information about actors');
+        return;
+      }
+      setActorList(actors);
+    });
   }, [movieId]);
-
-  console.log('actorList', actorList);
 
   return (
     <>
@@ -23,8 +28,8 @@ export default function Cast() {
               alt={actor.name}
               width="52"
             />
-            <span>{actor.name}</span>
-            <span>Character:{actor.character}</span>
+            <h5>{actor.name}</h5>
+            <span>({actor.character})</span>
           </li>
         ))}
       </ul>

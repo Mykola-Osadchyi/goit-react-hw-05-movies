@@ -21,23 +21,21 @@ export default function Searchbar({ onSubmit }) {
   };
 
   return (
-    <header className={s.Searchbar}>
-      <form className={s.SearchForm} onSubmit={handleSubmit}>
-        <button type="submit" className={s.SearchForm_button}>
-          <span className={s.SearchForm_button_label}>Search</span>
-        </button>
+    <form className={s.SearchForm} onSubmit={handleSubmit}>
+      <button type="submit" className={s.SearchForm_button}>
+        <span className={s.SearchForm_button_label}>Search</span>
+      </button>
 
-        <input
-          className={s.SearchForm_input}
-          type="text"
-          value={search}
-          onChange={handleChange}
-          autoComplete="off"
-          autoFocus
-          placeholder="Search movies"
-        />
-      </form>
-    </header>
+      <input
+        className={s.SearchForm_input}
+        type="text"
+        value={search}
+        onChange={handleChange}
+        autoComplete="off"
+        autoFocus
+        placeholder="Search movies"
+      />
+    </form>
   );
 }
 
