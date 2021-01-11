@@ -8,23 +8,21 @@ import Container from './components/Container/Container';
 import LoaderPage from './components/Loader/Loader';
 
 const HomePage = lazy(() =>
-  import(
-    './components/HomePage/HomePage.js' /* webpackChunkName: "HomePage" */
-  ),
+  import('./pages/HomePage/HomePage.js' /* webpackChunkName: "HomePage" */),
 );
 const MoviesPage = lazy(() =>
   import(
-    './components/MoviesPage/MoviesPage.js' /* webpackChunkName: "MoviesPage" */
+    './pages/MoviesPage/MoviesPage.js' /* webpackChunkName: "MoviesPage" */
   ),
 );
 const MovieDetailsPage = lazy(() =>
   import(
-    './components/MovieDetailsPage/MovieDetailsPage.js' /* webpackChunkName: "MovieDetailsPage" */
+    './pages/MovieDetailsPage/MovieDetailsPage.js' /* webpackChunkName: "MovieDetailsPage" */
   ),
 );
 const PageNotFound = lazy(() =>
   import(
-    './components/PageNotFound/PageNotFound' /* webpackChunkName: "PageNotFound" */
+    './pages/PageNotFound/PageNotFound' /* webpackChunkName: "PageNotFound" */
   ),
 );
 

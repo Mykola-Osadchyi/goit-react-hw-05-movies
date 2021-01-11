@@ -5,7 +5,7 @@ import { Pagination } from '@material-ui/lab';
 import useStyles from '../../services/stylesPagination';
 import { searchMovies } from '../../services/fetchMovies-api';
 
-import SearchBar from '../Searchbar/Searchbar';
+import SearchBar from '../../components/Searchbar/Searchbar';
 // import makeImagePath from '../../services/makeImagePath';
 // import s from './MoviesPage.module.css';
 
@@ -33,7 +33,10 @@ export default function MoviesPage() {
     if (!searchQuery) return;
     searchMovies(searchQuery, page).then(({ results, total_pages }) => {
       if (results.length === 0) {
-        toast.error('Movies not found');
+        toast.info('Movies not found');
+        setSearchQuery('');
+        setMovies([]);
+        setTotalPage(0);
       } else {
         setMovies(results);
         setTotalPage(total_pages);
@@ -56,29 +59,29 @@ export default function MoviesPage() {
   return (
     <>
       <SearchBar onSubmit={handleFormSubmit} />
-      {/* <ul className={s.movieGallery}> */}
-      <ul>
-        {movies.map(movie => {
-          // const poster = makeImagePath(movie.poster_path, 'w185');
-          return (
-            // <li key={movie.id} className={s.movieCard}>
-            <li key={movie.id}>
-              <Link
-                to={{
-                  pathname: `${url}/${movie.id}`,
-                  state: { from: location },
-                }}
-              >
-                {/* <img src={poster} alt={movie.title} width="94" /> */}
-                {/* <span className={s.movieTitle}>{movie.title}</span> */}
-                <span>
-                  {movie.title} ({movie.release_date.slice(0, 4)})
-                </span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      {movies && (
+        <ul>
+          {movies.map(movie => {
+            return (
+              <li key={movie.id}>
+                <Link
+                  to={{
+                    pathname: `${url}/${movie.id}`,
+                    state: { from: location },
+                  }}
+                >
+                  <span>{movie.title}</span>
+                  {movie.release_date ? (
+                    <span>({movie.release_date.slice(0, 4)})</span>
+                  ) : (
+                    <span>(no info)</span>
+                  )}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
       {totalPage > 1 && (
         <Pagination
           className={classes.root}

@@ -47,3 +47,8 @@ h5 {
   font-size: 16px;
   margin: 0px;
 }
+
+.add_info {
+  display: flex;
+  justify-content: center;
+}

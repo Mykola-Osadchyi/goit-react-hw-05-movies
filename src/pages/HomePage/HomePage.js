@@ -36,9 +36,12 @@ export default function HomePage() {
                 state: { from: location },
               }}
             >
-              <span>
-                {movie.title} ({movie.release_date.slice(0, 4)})
-              </span>
+              <span>{movie.title}</span>
+              {movie.release_date ? (
+                <span>({movie.release_date.slice(0, 4)})</span>
+              ) : (
+                <span>(no info)</span>
+              )}
             </Link>
           </li>
         ))}

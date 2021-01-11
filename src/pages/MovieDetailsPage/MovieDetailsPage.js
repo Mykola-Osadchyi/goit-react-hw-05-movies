@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import { getMovieDetails } from '../../services/fetchMovies-api';
 import makeImagePath from '../../services/makeImagePath';
-import LoaderPage from '../Loader/Loader';
+import LoaderPage from '../../components/Loader/Loader';
 import s from './MovieDetailsPage.module.css';
 
 const Cast = lazy(() =>
@@ -53,7 +53,12 @@ export default function MovieDetailsPage() {
             />
             <div className={s.movieDescription}>
               <h4 className={s.movieTitle}>
-                {movie.title} ({movie.release_date.slice(0, 4)})
+                {movie.title}
+                {movie.release_date ? (
+                  <span>({movie.release_date.slice(0, 4)})</span>
+                ) : (
+                  <span>(no info)</span>
+                )}
               </h4>
               <span className={s.movieDescriptionItem}>Popularity:</span>
               <span>{movie.popularity}</span>
@@ -69,29 +74,31 @@ export default function MovieDetailsPage() {
               </ul>
             </div>
           </div>
-          <h5>Additional information</h5>
-          <ul className="moreMovieInfo">
-            <NavLink
-              to={{
-                pathname: `${url}/cast`,
-                state: { from: location?.state?.from ?? '/' },
-              }}
-              className={s.link}
-              activeClassName={s.active}
-            >
-              Cast
-            </NavLink>
-            <NavLink
-              to={{
-                pathname: `${url}/reviews`,
-                state: { from: location?.state?.from ?? '/' },
-              }}
-              className={s.link}
-              activeClassName={s.active}
-            >
-              Reviews
-            </NavLink>
-          </ul>
+          <div className={s.add_info}>
+            <h5>Additional information</h5>
+            <ul className="moreMovieInfo">
+              <NavLink
+                to={{
+                  pathname: `${url}/cast`,
+                  state: { from: location?.state?.from ?? '/' },
+                }}
+                className={s.link}
+                activeClassName={s.active}
+              >
+                Cast
+              </NavLink>
+              <NavLink
+                to={{
+                  pathname: `${url}/reviews`,
+                  state: { from: location?.state?.from ?? '/' },
+                }}
+                className={s.link}
+                activeClassName={s.active}
+              >
+                Reviews
+              </NavLink>
+            </ul>
+          </div>
           <Suspense fallback={<LoaderPage />}>
             <Switch>
               <Route path={`${path}/cast`}>
