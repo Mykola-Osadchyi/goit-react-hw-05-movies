@@ -29,7 +29,7 @@ const PageNotFound = lazy(() =>
 export default function App() {
   useEffect(() => {
     addBackToTop({
-      backgroundColor: '#fa7584',
+      backgroundColor: '#0a96f3',
     });
   }, []);
 

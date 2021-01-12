@@ -3,7 +3,7 @@ import s from './Navigations.module.css';
 
 export default function Navigation() {
   return (
-    <nav>
+    <nav className={s.navigation}>
       <NavLink exact to="/" className={s.link} activeClassName={s.activeLink}>
         Home
       </NavLink>

@@ -7,7 +7,7 @@ const LoaderPage = () => {
     <div className={s.loader}>
       <Loader
         type="ThreeDots"
-        color="blue"
+        color="#0a96f3"
         height={80}
         width={80}
         timeout={2000}

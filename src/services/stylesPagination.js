@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     '& .MuiPaginationItem-page.Mui-selected, & .MuiPaginationItem-page.Mui-selected:hover, & .MuiPaginationItem-page.Mui-selected.Mui-focusVisible,  & .MuiPaginationItem-page:hover, & .MuiPaginationItem-page.Mui-focusVisible': {
-      backgroundColor: '#fa7584',
+      backgroundColor: '#0a96f3',
     },
     '& .MuiPaginationItem-root': {
       color: '#fff',

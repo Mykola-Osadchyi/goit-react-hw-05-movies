@@ -6,8 +6,7 @@ import useStyles from '../../services/stylesPagination';
 import { searchMovies } from '../../services/fetchMovies-api';
 
 import SearchBar from '../../components/Searchbar/Searchbar';
-// import makeImagePath from '../../services/makeImagePath';
-// import s from './MoviesPage.module.css';
+import s from '../HomePage/HomePage.module.css';
 
 export default function MoviesPage() {
   const classes = useStyles();
@@ -60,11 +59,12 @@ export default function MoviesPage() {
     <>
       <SearchBar onSubmit={handleFormSubmit} />
       {movies && (
-        <ul>
+        <ul className={s.list}>
           {movies.map(movie => {
             return (
               <li key={movie.id}>
                 <Link
+                  className={s.item}
                   to={{
                     pathname: `${url}/${movie.id}`,
                     state: { from: location },
@@ -72,9 +72,11 @@ export default function MoviesPage() {
                 >
                   <span>{movie.title}</span>
                   {movie.release_date ? (
-                    <span>({movie.release_date.slice(0, 4)})</span>
+                    <span className={s.year}>
+                      ({movie.release_date.slice(0, 4)})
+                    </span>
                   ) : (
-                    <span>(no info)</span>
+                    <span className={s.year}>(no info)</span>
                   )}
                 </Link>
               </li>

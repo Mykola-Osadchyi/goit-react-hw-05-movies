@@ -8,6 +8,7 @@ import {
   useLocation,
   useHistory,
 } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { getMovieDetails } from '../../services/fetchMovies-api';
 import makeImagePath from '../../services/makeImagePath';
 import LoaderPage from '../../components/Loader/Loader';
@@ -31,7 +32,13 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    getMovieDetails(movieId).then(setMovie);
+    getMovieDetails(movieId).then(movies => {
+      if (movies.length === 0) {
+        toast.error('Page not found');
+        return;
+      }
+      setMovie(movies);
+    });
   }, [movieId]);
 
   const handleGoBack = () => {
@@ -42,22 +49,24 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <>
-          <button type="button" onClick={handleGoBack}>
+          <button type="button" onClick={handleGoBack} className={s.backBtn}>
             Go back
           </button>
           <div className={s.movieWraper}>
             <img
-              src={makeImagePath(movie.poster_path, 'w185')}
+              src={makeImagePath(movie.poster_path, 'w500')}
               alt={movie.title}
-              width="185"
+              width="260"
             />
             <div className={s.movieDescription}>
               <h4 className={s.movieTitle}>
                 {movie.title}
                 {movie.release_date ? (
-                  <span>({movie.release_date.slice(0, 4)})</span>
+                  <span className={s.movieYear}>
+                    ({movie.release_date.slice(0, 4)})
+                  </span>
                 ) : (
-                  <span>(no info)</span>
+                  <span className={s.movieYear}>(no info)</span>
                 )}
               </h4>
               <span className={s.movieDescriptionItem}>Popularity:</span>
@@ -75,8 +84,8 @@ export default function MovieDetailsPage() {
             </div>
           </div>
           <div className={s.add_info}>
-            <h5>Additional information</h5>
-            <ul className="moreMovieInfo">
+            <h5 className={s.moreMovieInfo}>Additional information</h5>
+            <ul className={s.moreInfoList}>
               <NavLink
                 to={{
                   pathname: `${url}/cast`,

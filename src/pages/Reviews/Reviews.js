@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ShowMore from 'react-simple-show-more';
 import { getMovieReviews } from '../../services/fetchMovies-api';
+import s from './Reviews.module.css';
 
 export default function Reviews() {
   const { movieId } = useParams();
@@ -20,10 +21,10 @@ export default function Reviews() {
 
   return (
     <>
-      <ul className="reviewsList">
+      <ul className={s.reviewsList}>
         {reviewsList.map(review => (
-          <li key={review.id} className="review">
-            <h4 className="author">{review.author}</h4>
+          <li key={review.id} className={s.review}>
+            <h4 className={s.author}>{review.author}</h4>
             <p>
               "
               <ShowMore
@@ -33,7 +34,7 @@ export default function Reviews() {
                 showLessLabel=" Show less <<"
                 style={{
                   cursor: 'pointer',
-                  color: 'green',
+                  color: '#0a96f3',
                   fontWeight: 'bold',
                 }}
               />

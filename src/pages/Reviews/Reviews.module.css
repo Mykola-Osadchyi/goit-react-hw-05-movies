@@ -1,0 +1,15 @@
+.reviewsList {
+  color: white;
+}
+
+.review {
+  color: #ffffff;
+  list-style: none;
+}
+
+.author {
+  color: #70b8f8;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}

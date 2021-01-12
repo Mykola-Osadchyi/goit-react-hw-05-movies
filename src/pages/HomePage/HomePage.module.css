@@ -1,0 +1,30 @@
+.title {
+  color: aliceblue;
+  text-align: center;
+  font-size: 30px;
+}
+
+.list {
+  list-style: none;
+  text-align: right;
+  width: 800px;
+}
+
+.item {
+  font-size: 24px;
+  text-decoration: none;
+  color: #0a96f3;
+  font-weight: 700;
+}
+
+.item:hover,
+.item:focus {
+  color: aliceblue;
+  background-color: #322236;
+  transition: opacity 300ms linear, color 200ms linear,
+    background-color 200ms linear;
+}
+
+.year {
+  padding-left: 12px;
+}
